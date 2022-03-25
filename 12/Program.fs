@@ -12,7 +12,7 @@ let main argv =
         |"python" -> printfn "Дорога на Арарат"
         |"С++" -> printfn "Не стоит"
         |"С#" -> printfn "мой любимый язык, если что"
-        |other -> printfn "%s"(lang + "чел мне лень писать ответ под твой ЯП, но если это abap то я тебе сочувствую")
+        |other -> printfn "хочу кушать."
     //12.1
     (Console.ReadLine>>answer>>Console.WriteLine)()
     //12.2
