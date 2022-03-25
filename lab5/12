@@ -1,17 +1,17 @@
-﻿// Learn more about F# at http://fsharp.org
+
 
 open System
 
 [<EntryPoint>]
 //11
 let main argv =
-    printfn "Какой твой любимый помидор?"
+    printfn "Какой твой любимый ЯП"
     let answer tomato  = 
         match tomato with 
-        | "F#"|"Prolog"->"Я спросил про помидор"
-        |"Pascal"->"Я СПРОСИЛ ПРО ПОМИДОР. Ладноо, забей"
-        |"C++" -> "Я СПРОСИЛ ПРО ПОМИДОРЫ АЛЛО. Забей, чел, для тебя это слишком сложно"
-        |"Чили"|"Кубанские"|"Ставропольские"|"Забугорные"|"Красные"|"Спелые" -> "Понятно." 
+        | "F#"|"Prolog"->"Подлизываешь, но..."
+        |"Pascal"->"Офигеть ты динозаво"
+        |"C++" -> "okay"
+        |other -> "dsfdsf"
     //12.1
     (Console.ReadLine>>answer>>Console.WriteLine)()
     //12.2
