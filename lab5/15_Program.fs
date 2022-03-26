@@ -25,9 +25,8 @@ let rec rf n f init known =
 let ff n f init = 
     rf n f init (n-1)
 
-
-
-
+// let Eiler n = 
+//    ff n (fun x y -> x+1) 0
 
 [<EntryPoint>]
 let main argv =
