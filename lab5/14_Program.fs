@@ -19,5 +19,5 @@ let PDON n func intinial =
 
 [<EntryPoint>]
 let main argv =
-    printf "MOD: %A" (PDON 78 (fun x y -> x-y)0)//разност делителей 
+    printf "MOD: %A" (PDON 78 (fun x y -> x+y)0) 
     0 // return an integer exit code
