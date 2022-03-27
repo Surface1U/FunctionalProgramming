@@ -1,3 +1,3 @@
 
 
-![](https://sun9-69.userapi.com/impf/ODG9khMAE-lOxca8qEijaDA0WmyYJYHcTQrLnQ/269bHIYajt8.jpg?size=719x719&quality=96&sign=39d78e07a8754203319080ab40819e20&type=album)
+![](https://img5.goodfon.ru/original/1600x900/c/b4/dark-souls-siegmeyer-of-catarina-yhorm-knight-robot-warrior.jpg)
