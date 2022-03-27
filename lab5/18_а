@@ -1,0 +1,30 @@
+open System
+//a
+let rec nod a b = 
+    if(a>0 && b>0)
+    then if(a>b)
+          then nod (a%b) b
+          else nod a (b%a)
+    else if (a = 0)
+        then b 
+        else a 
+
+let processing x f init = 
+    let rec processing1 x f init current = 
+        if current = 0 then init
+        else
+            let newInit = if nod x current = 1 then f init current
+                          else init
+            let newCurrent = current - 1
+            processing1 x f newInit newCurrent
+    processing1 x f init x
+
+let euler x = 
+    processing x (fun x y-> x+1) 0
+    
+    [<EntryPoint>]
+let main argv =
+    let num = 11
+    //printfn "%b" (10 = Eiler  num)
+    Console.WriteLine(4 = euler 10)
+    0
