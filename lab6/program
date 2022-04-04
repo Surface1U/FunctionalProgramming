@@ -1,0 +1,488 @@
+open System
+
+//11
+
+
+let rec readlist n = 
+    if n = 0 then []
+    else 
+    let head = Console.ReadLine()|>Convert.ToInt32
+    let tail = readlist (n-1)
+    head::tail
+
+let rec writelist = function 
+    []->()
+    |(head:int)::tail -> 
+                    System.Console.WriteLine(head)
+                    writelist tail
+
+let sumlist a b c = (a+b)+c
+
+let modification (list:'int list)= 
+    let rec m1 list (resultlist:'int list) = 
+        match list with 
+        |a::b::c::t-> m1 t (resultlist @[sumlist a b c])
+        |a::b::[] ->(resultlist @ [sumlist a b 1])
+        |a::[]->(resultlist @ [sumlist a 1 1])
+        |[]->resultlist
+    m1 list List.Empty
+
+[<EntryPoint>]
+let main argv =
+    let n = Console.ReadLine()|> Int32.Parse
+    let list = readlist n 
+    writelist (modification list)
+    0 // return an integer exit code
+
+//1.1
+let rec readList n = 
+    if n=0 then []
+    else
+    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
+
+let readData = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readList n
+
+let rec writeList = function
+    [] ->   let z = System.Console.ReadKey()
+            0
+    | (head : int)::tail -> 
+                       System.Console.WriteLine(head)
+                       writeList tail  
+
+// Найти кол-во элементов, расположенных после последнего максимального
+//Индекс последнего максимального элемента
+let Indmax list = 
+    let rec Indmax2 lint max indM indEL=
+        match lint with
+        |[]->indM
+        |h::t -> 
+            let newMax = if h>=max then h else max
+            let newInd = if h>=max then indEL else indM
+            Indmax2 t newMax newInd (indEL+1)
+    Indmax2 list list.Head 0 0 
+
+ //Ищем длину
+let Lenght list = 
+    let rec Lenght2 list count =
+        match list with 
+        |[]->count
+        |h::t->
+            let newCount = count+1
+            Lenght2 t newCount
+    Lenght2 list 0
+
+//ищем колличество
+let countNums list = 
+    let indexMax =Indmax list 
+    let result = Lenght list - indexMax-1
+    result
+
+
+[<EntryPoint>]
+let main argv =
+    Console.WriteLine("Колличество элементов, расположенных после последнего максимального")
+    readData|>countNums|>Console.WriteLine 
+    0 // return an integer exit code
+    
+//1.12
+let rec readlist n = 
+    if n = 0 then []
+    else 
+    let head = Console.ReadLine()|>Convert.ToInt32
+    let tail = readlist (n-1)
+    head::tail
+
+let rec writelist = function 
+    []->()
+    |(head:int)::tail -> 
+                System.Console.WriteLine(head)
+                writelist tail
+
+let findmax list = 
+    let rec findmax1 list curmax maxid curid = 
+        match list with
+        |[]->(maxid, curmax)
+        |h::t ->
+            let newmax = if h>curmax then h else curmax 
+            let newmaxid = if h>curmax then curid else maxid 
+            let newid = curmax + 1 
+            findmax1 t newmax newmaxid newid
+    findmax1 list list.Head 0 0
+
+let finmin list = 
+    let rec finmin1 list curmin minid curid = 
+        match list with 
+        |[]->(minid, curmin)
+        |h::t ->
+            let newmin = if h<curmin then h else curmin 
+            let newminid = if h < curmin then curid else minid
+            let newid = curid + 1
+            finmin1 t newmin newminid newid
+    finmin1 list list.[0] 0 0
+
+let reverse list = 
+    let rec rev1 list newlist=
+        match list with 
+        |[]->newlist 
+        |h::t->
+            let newlist1 = [h] @ newlist 
+            rev1 t newlist1 
+    rev1 list []
+        
+
+
+[<EntryPoint>]
+let main argv =
+    let n = Console.ReadLine()|>Int32.Parse
+    let list = readlist n 
+    Console.WriteLine()
+    let max= fst (findmax list)
+    let min= fst (finmin list)
+    let start = Math.Min(max,min)
+    let endpoint=Math.Max(min,max)
+    let piece=list.[start+1..endpoint-1]
+    let result= list.[0..start]@ (reverse piece) @ list.[endpoint..n-1]
+    writelist(result)
+    0 // return an integer exit code
+    
+ //1.14
+ 
+ let rec readlist n = 
+    if n = 0 then []
+    else 
+    let head = Console.ReadLine()|>Convert.ToInt32
+    let tail = readlist (n-1)
+    head::tail
+
+let readdata = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readlist n
+
+let rec writeList = function //длина списка
+    [] ->   let z = System.Console.ReadKey()
+            0
+    | (head : int)::tail -> 
+                       System.Console.WriteLine(head)
+                       writeList tail  
+
+// количество элементов в интервале
+
+let count list a b=
+   let rec count2 list a b init=
+    match list with
+    |[]->init
+    |h::t->
+         if(h>a && h<b) then 
+         count2 t a b init+1
+         else 
+         count2 t a b init
+   count2 list a b 0
+
+[<EntryPoint>]
+let main argv =
+    let l=readdata
+    Console.WriteLine("Введите значение начала и конца интервала")
+    let a=System.Convert.ToInt32(System.Console.ReadLine())
+    let b=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Количество элементов в интервале:{0}", count l a b) 
+    0 // return an integer exit code
+    
+//1.16
+
+let rec readlist n = 
+    if n = 0 then []
+    else 
+    let head = Console.ReadLine()|>Convert.ToInt32
+    let tail = readlist (n-1)
+    head::tail
+
+let readdata = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readlist n
+
+let rec writeList = function //длина списка and write
+    [] ->   let z = System.Console.ReadKey()
+            0
+    | (head : int)::tail -> 
+                       System.Console.WriteLine(head)
+                       writeList tail  
+
+let IndMax list = //first max
+    let rec IndMax2 list max indM indEl = 
+        match list with 
+        |[]->(indM, max)
+        |h::t->
+            let newMax = if h>=max then h else max 
+            let newInd = if h>=max then indEl else indM
+            IndMax2 t newMax newInd (indEl+1)
+    IndMax2 list list.Head 0 0
+
+let IndMax2 list max = 
+    let rec newIndmax2 list max max2 IndM2 indEl = 
+        match list with 
+        |[]->(IndM2,max2)
+        |h::t->
+            let newmax = if (h>max2 && h<>max) then h else max2
+            let newmaxid = if (h>max && h<>max) then indEl else IndM2
+            newIndmax2 t max newmax newmaxid (indEl+1)
+    newIndmax2 list max list.Head 0 0 
+
+[<EntryPoint>]
+let main argv =
+    let list=readdata 
+    let maxel=snd (IndMax list)
+    let max1ind=fst (IndMax list)
+    let max2el=snd (IndMax2 list maxel)
+    let max2ind=fst (IndMax2 list maxel)
+    Console.WriteLine("Первый максимум:{0} ",maxel)
+    Console.WriteLine("Второй максимум:{0} ",max2el)
+    let start=Math.Min(max1ind,max2ind)
+    let finish=Math.Max(max1ind,max2ind)
+    Console.WriteLine("Получившийся список из элементов, расположенных между первым и вторым максимальным: ")
+    let answ=list.[start+1..finish-1]      //выбор элементов
+    writeList(answ)
+    0 // return an integer exit code
+
+
+//1.26
+
+let rec readlist n = 
+    if n = 0 then []
+    else 
+    let head = Console.ReadLine()|>Convert.ToInt32
+    let tail = readlist (n-1)
+    head::tail
+
+let readdata = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readlist n
+
+let rec writeList = function //длина списка and write
+    [] ->   let z = System.Console.ReadKey()
+            0
+    | (head : int)::tail -> 
+                       System.Console.WriteLine(head)
+                       writeList tail  
+
+let Indmin list = 
+    let rec Indmin2 list min indM indEL=
+        match list with
+        |[]->(indM,min)
+        |h::t -> 
+            let newMin = if h<min then h else min
+            let newInd = if h<min then indEL else indM
+            Indmin2 t newMin newInd (indEL+1)
+    Indmin2 list list.Head 0 0 
+
+//второй минимум
+let Indmin2 list min=
+    let rec newIndmin2 list min min2 indM2 indEl =
+        match list with
+        | [] -> (indM2, min2)
+        | h::t ->
+            let new_min = if (h < min2 && h<>min) then h else min2
+            let new_min_idx = if (h < min2 && h<>min) then indEl else indM2
+            newIndmin2 t min new_min new_min_idx (indEl+1)
+    newIndmin2 list min list.Head 0 0 
+
+[<EntryPoint>]
+let main argv =
+    let list=readdata 
+    let min1el=snd(Indmin list)
+    let min1ind=fst (Indmin list)
+    let min2el= snd(Indmin2 list min1el)
+    let min2ind=fst (Indmin2 list min1el)
+    Console.WriteLine("Первый минимум:{0} ",min1el)
+    Console.WriteLine("Второй минимум:{0} ",min2el)
+    let start=Math.Min(min1ind,min2ind)
+    let finish=Math.Max(min1ind,min2ind)
+    let answer=finish-start-1 
+    Console.WriteLine("Количество  элементов между первым и последним минимальным={0}", answer
+    )
+    0 // return an integer exit code
+
+
+//1.29
+
+let rec readlist n = 
+    if n = 0 then []
+    else 
+    let head = Console.ReadLine()|>Convert.ToInt32
+    let tail = readlist (n-1)
+    head::tail
+
+let readdata = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readlist n
+
+let rec writeList = function //длина списка and write
+    [] ->   let z = System.Console.ReadKey()
+            0
+    | (head : int)::tail -> 
+                       System.Console.WriteLine(head)
+                       writeList tail  
+
+let Indmax list = 
+    let rec Indmax2 list max indM indEl = 
+        match list with 
+        |[]->(max)
+        |h::tail->
+            let newMax = if h>=max then h else max 
+            let newInd = if h>max then indEl else indM
+            Indmax2 tail newMax newInd (indEl+1)
+    Indmax2 list list.Head 0 0
+
+[<EntryPoint>]
+let main argv =
+    let list=readdata 
+    Console.WriteLine("Введите значение начала и конца интервала")
+    let a=System.Convert.ToInt32(System.Console.ReadLine())
+    let b=System.Convert.ToInt32(System.Console.ReadLine())
+    let max= Indmax list
+    Console.WriteLine("Максимум={0} ",max)
+    if(max>a && max<b) then Console.WriteLine("Принадлежит")
+    else Console.WriteLine("Не принадлежит")
+    0 // return an integer exit code
+
+
+//1.38
+
+let rec readlist n = 
+    if n = 0 then []
+    else 
+    let head = Console.ReadLine()|>Convert.ToInt32
+    let tail = readlist (n-1)
+    head::tail
+
+let readdata = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readlist n
+
+let rec writeList = function //длина списка and write
+    [] ->   let z = System.Console.ReadKey()
+            0
+    | (head : int)::tail -> 
+                       System.Console.WriteLine(head)
+                       writeList tail  
+
+let count list a b=
+   let rec count2 list a b init=
+    match list with
+    |[]->init
+    |h::t->
+         if(h>=a && h<=b) then 
+         count2 t a b init+1
+         else 
+         count2 t a b init
+   count2 list a b 0
+
+[<EntryPoint>]
+let main argv =
+    let list=readdata 
+    Console.WriteLine("Ввести значение начала и конца отрезка")
+    let a=System.Convert.ToInt32(System.Console.ReadLine())
+    let b=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Количество элементов,принадлежащих этому отрезку:{0}", count list a b)
+    0 // return an integer exit code
+
+
+//1.44
+
+
+let rec readlistdouble n =
+    if n = 0 then []
+    else
+    let Head = Console.ReadLine()|>Convert.ToDouble
+    let Tail = readlistdouble (n-1)
+    Head::Tail
+
+let readData = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readlistdouble n
+
+let check (list:float list)=
+    let rec check2 list b=
+        match list with
+        | []-> true
+        | h::t-> 
+            if ((h%1.0=0.0 && b%1.0=0.0) ||(h%1.0<>0.0 && b%1.0<>0.0)) then false     //проверяем обратное
+            else check2 t h
+    check2 list.Tail list.Head
+
+[<EntryPoint>]
+let main argv =
+    let n = Console.ReadLine()|> Int32.Parse
+    let list = readData 
+    Console.WriteLine(check list)
+    0 // return an integer exit code
+
+//1.60
+
+let rec readList n = 
+    if n=0 then []
+    else
+    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
+
+let readData = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readList n
+
+let rec writeList = function
+    [] ->   let z = System.Console.ReadKey()
+            0
+    | (head : int)::tail -> 
+                       System.Console.WriteLine(head)
+                       writeList tail 
+
+
+let frequency list elem=
+    let rec frequency1 list elem count =
+        match list with
+        |[] -> count
+        | h::t ->
+            if h=elem then
+                let newCount=count + 1
+                frequency1 t elem newCount
+            else frequency1 t elem count
+    frequency1 list elem 0
+
+let check list =
+    let rec m1 common list resultlist index =
+        match list with
+        | h::t->
+            let newIndex=index+1
+            if ((h% newIndex=0) && ((frequency common h)=1)) then m1 common t (resultlist @[h]) newIndex
+            else m1 common t resultlist newIndex
+        | []-> resultlist
+    m1 list list [] 0
+
+[<EntryPoint>]
+let main argv =
+    let n = Console.ReadLine()|> Int32.Parse
+    let list = readData
+    let result = check list
+    Console.WriteLine("Result")
+    writeList(result)
+    0 // return an integer exit code
