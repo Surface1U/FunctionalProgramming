@@ -1,0 +1,60 @@
+// Learn more about F# at http://fsharp.org
+
+open System
+
+let rec readlist n = 
+    if n = 0 then []
+    else 
+    let head = Console.ReadLine()|>Convert.ToInt32
+    let tail = readlist (n-1)
+    head::tail
+
+let readdata = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readlist n
+
+let rec writeList = function //длина списка and write
+    [] ->   let z = System.Console.ReadKey()
+            0
+    | (head : int)::tail -> 
+                       System.Console.WriteLine(head)
+                       writeList tail  
+
+let Indmin list = 
+    let rec Indmin2 list min indM indEL=
+        match list with
+        |[]->(indM,min)
+        |h::t -> 
+            let newMin = if h<min then h else min
+            let newInd = if h<min then indEL else indM
+            Indmin2 t newMin newInd (indEL+1)
+    Indmin2 list list.Head 0 0 
+
+//второй минимум
+let Indmin2 list min=
+    let rec newIndmin2 list min min2 indM2 indEl =
+        match list with
+        | [] -> (indM2, min2)
+        | h::t ->
+            let new_min = if (h < min2 && h<>min) then h else min2
+            let new_min_idx = if (h < min2 && h<>min) then indEl else indM2
+            newIndmin2 t min new_min new_min_idx (indEl+1)
+    newIndmin2 list min list.Head 0 0 
+
+[<EntryPoint>]
+let main argv =
+    let list=readdata 
+    let min1el=snd(Indmin list)
+    let min1ind=fst (Indmin list)
+    let min2el= snd(Indmin2 list min1el)
+    let min2ind=fst (Indmin2 list min1el)
+    Console.WriteLine("Первый минимум:{0} ",min1el)
+    Console.WriteLine("Второй минимум:{0} ",min2el)
+    let start=Math.Min(min1ind,min2ind)
+    let finish=Math.Max(min1ind,min2ind)
+    let answer=finish-start-1 
+    Console.WriteLine("Количество  элементов между первым и последним минимальным={0}", answer
+    )
+    0 // return an integer exit code
