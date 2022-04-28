@@ -1,0 +1,17 @@
+open System
+
+let sdgf x = //название крутое
+    let rec sfh num del = 
+        if num<=1 then []
+        else 
+            let new_del = del+1
+            if num% del = 0 then List.append[del] (sfh(num/del) del)
+            else sfh num new_del
+    sfh x 2
+
+[<EntryPoint>]
+let main argv =
+    Console.WriteLine("vvedite chislo")
+    let x = System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine(sdgf x)
+    0 // return an integer exit code
