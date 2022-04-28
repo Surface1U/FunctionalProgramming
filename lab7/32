@@ -1,0 +1,33 @@
+open System
+
+//заполение списка
+let rec readList n = 
+    if n=0 then []
+    else
+    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
+
+let readData = 
+    Console.WriteLine("Введите размерность списка:  ")
+    let n=System.Convert.ToInt32(System.Console.ReadLine())
+    Console.WriteLine("Введите список: ")
+    readList n
+
+let rec writeList = function
+    [] ->   let z = System.Console.ReadKey()
+            0
+    | (head : int)::tail -> 
+                       System.Console.WriteLine(head)
+                       writeList tail  
+
+let resh (list:'int list)=
+    List.fold (fun s x->if x then s+1 else s) 
+        0 (List.map3 (fun x y z->(y>x)&&(y>z)) list.[0..list.Length-3] list.[1..list.Length-2] list.[2..list.Length-1]) 
+
+
+[<EntryPoint>]
+let main argv =
+    let list=readData 
+    Console.WriteLine("Локальные Максимы={0}" ,resh list)
+    0
